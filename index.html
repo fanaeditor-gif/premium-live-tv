@@ -2513,359 +2513,156 @@ body.idle .group{
 }
 
 </style>
-<style id="fantv-cricket-ui">
 
-/* ===== FAN TV PREMIUM CRICKET HOME ===== */
+<style id="fantv-speed-hero-final">
 
-body{
-  background:#05080d!important;
-}
+/* =========================================================
+   FAN TV FAST HOME HERO
+   Image only - NO background video
+========================================================= */
 
-/* HERO */
 body.idle .fan-hero{
   display:block!important;
+  position:relative!important;
+
   width:calc(100% - 40px)!important;
   max-width:1500px!important;
-  height:315px!important;
-  margin:16px auto 12px!important;
-  border-radius:18px!important;
+
+  height:clamp(260px,31vw,430px)!important;
+
+  margin:16px auto 14px!important;
+
+  padding:0!important;
+
   overflow:hidden!important;
+
+  border-radius:20px!important;
+
   border:1px solid rgba(255,255,255,.08)!important;
-  background:
-    linear-gradient(90deg,
-      rgba(2,7,15,.94) 0%,
-      rgba(2,7,15,.55) 42%,
-      rgba(2,7,15,.20) 68%,
-      rgba(2,7,15,.68) 100%
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3,6,12,.18),
+      rgba(3,6,12,.02)
     ),
-    url("hero-cricket.png") center/cover no-repeat!important;
-  box-shadow:0 18px 60px rgba(0,0,0,.38)!important;
+    url("./hero-cricket.png")!important;
+
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+
+  box-shadow:
+    0 18px 55px
+    rgba(0,0,0,.28)!important;
+
+  cursor:pointer!important;
 }
+
+/*
+  Old dynamic hero layers are disabled.
+  This prevents channel logos/backgrounds from
+  replacing the cricket artwork.
+*/
 
 body.idle .fan-hero-bg,
-body.idle .fan-hero-shade{
-  display:none!important;
-}
-
-body.idle .fan-hero-content{
-  position:absolute!important;
-  left:48px!important;
-  top:50%!important;
-  width:480px!important;
-  transform:translateY(-50%)!important;
-  z-index:5!important;
-}
-
-body.idle .fan-hero-row{
-  display:block!important;
-}
-
-body.idle .fan-hero-logo-wrap{
-  display:none!important;
-}
-
-body.idle .fan-hero-label{
-  background:#ef1427!important;
-  border-radius:6px!important;
-  padding:7px 11px!important;
-  font-size:9px!important;
-  font-weight:900!important;
-  letter-spacing:1px!important;
-}
-
-body.idle #fanHeroTitle{
-  margin-top:10px!important;
-  color:#fff!important;
-  font-size:42px!important;
-  font-weight:900!important;
-  line-height:1.03!important;
-  letter-spacing:-1.2px!important;
-  white-space:normal!important;
-}
-
-body.idle #fanHeroMeta{
-  margin-top:10px!important;
-  color:#fff!important;
-  font-size:13px!important;
-  font-weight:800!important;
-}
-
-body.idle #fanHeroDescription{
-  max-width:420px!important;
-  margin:9px 0 17px!important;
-  color:rgba(255,255,255,.72)!important;
-  font-size:11px!important;
-}
-
-body.idle .fan-hero-watch{
-  height:43px!important;
-  padding:0 20px!important;
-  border-radius:10px!important;
-  background:#fff!important;
-  color:#080b10!important;
-  font-weight:850!important;
-}
-
-body.idle .fan-hero-favorite{
-  display:none!important;
-}
-
-/* Replace old ad box with match badge */
+body.idle .fan-hero-shade,
+body.idle .fan-hero-content,
 body.idle .fan-ad-slot{
-  top:24px!important;
-  right:25px!important;
-  width:auto!important;
-  height:auto!important;
-  padding:9px 13px!important;
-  transform:none!important;
-  border:1px solid rgba(255,255,255,.12)!important;
-  border-radius:9px!important;
-  background:rgba(5,8,14,.72)!important;
-  backdrop-filter:blur(10px)!important;
-}
-
-body.idle .fan-ad-small{
   display:none!important;
 }
 
-body.idle .fan-ad-title{
-  font-size:11px!important;
-  font-weight:900!important;
-  color:#fff!important;
+/* lightweight play overlay */
+
+body.idle .fan-hero::after{
+  content:"Watch Live";
+
+  position:absolute;
+
+  left:50%;
+  bottom:22px;
+
+  transform:translateX(-50%);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-width:135px;
+  height:42px;
+
+  padding:0 20px;
+
+  border-radius:999px;
+
+  background:rgba(230,10,30,.94);
+
+  color:#fff;
+
+  font-size:12px;
+  font-weight:850;
+
+  box-shadow:
+    0 8px 25px
+    rgba(229,9,20,.30);
+
+  pointer-events:none;
 }
 
-body.idle .fan-ad-title::before{
-  content:"● "!important;
-  color:#ff1d32!important;
-}
+/*
+  While watching, hero disappears completely.
+*/
 
-body.idle .fan-ad-sub{
+body:not(.idle) .fan-hero{
   display:none!important;
 }
 
-/* TOP CHANNELS */
-body.idle .fan-top-section{
-  width:calc(100% - 40px)!important;
-  max-width:1500px!important;
-  margin:0 auto!important;
-  padding:18px 0 12px!important;
-}
 
-.fan-section-title{
-  font-size:22px!important;
-  font-weight:900!important;
-  color:#fff!important;
-}
+/* =========================================================
+   PERFORMANCE
+========================================================= */
 
-.fan-top-channels{
-  display:flex!important;
-  gap:13px!important;
-  overflow-x:auto!important;
-  scroll-behavior:smooth!important;
-  padding:4px 2px 12px!important;
-  scrollbar-width:none!important;
-}
-
-.fan-top-channels::-webkit-scrollbar{
-  display:none!important;
-}
-
-.fan-top-card{
-  flex:0 0 150px!important;
-  width:150px!important;
-  min-width:150px!important;
-  height:135px!important;
-  border-radius:13px!important;
-  overflow:hidden!important;
-  border:1px solid rgba(255,255,255,.08)!important;
-  background:#10151d!important;
-  cursor:pointer!important;
-  transition:.2s ease!important;
-}
-
-.fan-top-card:hover{
-  transform:translateY(-4px) scale(1.02)!important;
-  border-color:#ed1530!important;
-}
-
-.fan-top-card:first-child{
-  border-color:#ff1738!important;
-  box-shadow:0 0 20px rgba(255,23,56,.20)!important;
-}
-
-.fan-top-logo{
-  height:92px!important;
-  padding:13px!important;
-  background:
-    radial-gradient(circle at center,#1c2736,#0b1017)!important;
-}
-
+.ch-logo,
 .fan-top-logo img{
-  width:100%!important;
-  height:100%!important;
-  object-fit:contain!important;
-}
-
-.fan-top-name{
-  height:43px!important;
-  padding:0 10px!important;
-  color:#fff!important;
-  font-size:11px!important;
-  font-weight:800!important;
-}
-
-/* ALL CHANNELS */
-body.idle .sidebar{
-  display:flex!important;
-  width:calc(100% - 40px)!important;
-  max-width:1500px!important;
-  height:auto!important;
-  margin:8px auto 60px!important;
-  padding:0!important;
-  border:0!important;
-  background:transparent!important;
-}
-
-body.idle .channels{
-  display:grid!important;
-  grid-template-columns:
-    repeat(auto-fill,minmax(160px,1fr))!important;
-  gap:13px!important;
-  overflow:visible!important;
-  padding:0!important;
+  content-visibility:auto;
 }
 
 body.idle .channel{
-  display:grid!important;
-  grid-template-columns:1fr!important;
-  grid-template-rows:100px 45px!important;
-  height:145px!important;
-  min-height:145px!important;
-  max-height:145px!important;
-  padding:0!important;
-  gap:0!important;
-  border-radius:13px!important;
-  overflow:hidden!important;
-  background:#10151d!important;
-  border:1px solid rgba(255,255,255,.07)!important;
+  contain:layout paint;
 }
 
-body.idle .channel:hover{
-  transform:translateY(-3px)!important;
-  border-color:rgba(255,30,58,.65)!important;
+body.idle .channels{
+  content-visibility:auto;
 }
 
-body.idle .ch-logo,
-body.idle .ch-fallback{
-  width:100%!important;
-  height:100px!important;
-  min-height:100px!important;
-  max-height:100px!important;
-  padding:15px!important;
-  object-fit:contain!important;
-  background:
-    radial-gradient(circle at center,#1c2736,#0b1017)!important;
-}
 
-body.idle .ch-info{
-  height:45px!important;
-  padding:7px 10px!important;
-  background:#0d1219!important;
-}
+/* =========================================================
+   MOBILE HERO
+========================================================= */
 
-body.idle .ch-name{
-  font-size:11px!important;
-  font-weight:800!important;
-}
-
-/* SEARCH */
-.header .search-wrap{
-  display:block!important;
-  visibility:visible!important;
-  opacity:1!important;
-  width:min(480px,42vw)!important;
-}
-
-.header .search{
-  width:100%!important;
-  height:42px!important;
-  border-radius:22px!important;
-  border:1px solid rgba(255,255,255,.10)!important;
-  background:#101725!important;
-  color:#fff!important;
-}
-
-.header .search:focus{
-  border-color:#314a78!important;
-  box-shadow:0 0 0 3px rgba(35,75,145,.15)!important;
-}
-
-/* PLAYER MODE */
-body:not(.idle) .fan-hero,
-body:not(.idle) .fan-top-section{
-  display:none!important;
-}
-
-/* MOBILE */
 @media(max-width:760px){
 
   body.idle .fan-hero{
     width:calc(100% - 20px)!important;
-    height:360px!important;
+
+    height:210px!important;
+
+    margin:10px auto 12px!important;
+
+    border-radius:15px!important;
+
+    background-size:cover!important;
     background-position:center!important;
   }
 
-  body.idle .fan-hero-content{
-    left:20px!important;
-    right:20px!important;
-    top:auto!important;
-    bottom:25px!important;
-    width:auto!important;
-    transform:none!important;
-    padding:15px!important;
-    border-radius:14px!important;
-    background:rgba(3,7,13,.68)!important;
-    backdrop-filter:blur(10px)!important;
-  }
+  body.idle .fan-hero::after{
+    height:38px;
+    min-width:115px;
 
-  body.idle #fanHeroTitle{
-    font-size:28px!important;
-  }
+    bottom:13px;
 
-  body.idle .fan-ad-slot{
-    top:15px!important;
-    right:15px!important;
-    left:auto!important;
-    bottom:auto!important;
-  }
-
-  body.idle .fan-top-section,
-  body.idle .sidebar{
-    width:calc(100% - 20px)!important;
-  }
-
-  .fan-top-card{
-    flex-basis:125px!important;
-    width:125px!important;
-    min-width:125px!important;
-    height:115px!important;
-  }
-
-  .fan-top-logo{
-    height:78px!important;
-  }
-
-  .fan-top-name{
-    height:37px!important;
-  }
-
-  body.idle .channels{
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:10px!important;
-  }
-
-  .header .search-wrap{
-    width:100%!important;
+    font-size:11px;
   }
 }
 
@@ -6269,108 +6066,270 @@ setInterval(
 })();
 
 </script>
-<script id="fantv-cricket-js">
+
+<script id="fantv-speed-hero-final-js">
+
 (function(){
 
-  const MATCH_TITLE = "India vs West Indies";
+  /*
+    IMPORTANT:
+    This script NEVER starts a channel on page load.
 
-  const SPORTS_NAMES = [
-    "star sports 2",
-    "star sports 2 hindi",
-    "star sports"
-  ];
+    The cricket stream starts only after
+    the user clicks the hero.
+  */
 
-  function norm(v){
-    return String(v||"")
+  function normalizeName(value){
+
+    return String(value || "")
       .toLowerCase()
       .replace(/[^a-z0-9]+/g," ")
       .trim();
   }
 
-  function findSportsChannel(){
-    if(!Array.isArray(channels)) return -1;
 
-    for(const wanted of SPORTS_NAMES){
+  function findStarSports2(){
 
-      const exact=channels.findIndex(c=>
-        norm(c.name)===norm(wanted)
-      );
-
-      if(exact>=0) return exact;
+    if(
+      !Array.isArray(window.channels) &&
+      typeof channels === "undefined"
+    ){
+      return -1;
     }
 
-    for(const wanted of SPORTS_NAMES){
 
-      const partial=channels.findIndex(c=>
-        norm(c.name).includes(norm(wanted))
-      );
+    const list =
+      typeof channels !== "undefined"
+        ? channels
+        : window.channels;
 
-      if(partial>=0) return partial;
+
+    if(
+      !Array.isArray(list) ||
+      !list.length
+    ){
+      return -1;
     }
 
-    return -1;
+
+    const preferred = [
+
+      "star sports 2 hindi",
+
+      "star sports 2 hd",
+
+      "star sports 2"
+
+    ];
+
+
+    /*
+      Exact match first.
+    */
+
+    for(const wanted of preferred){
+
+      const index =
+        list.findIndex(
+          channel =>
+            normalizeName(channel.name) ===
+            wanted
+        );
+
+
+      if(index >= 0){
+        return index;
+      }
+    }
+
+
+    /*
+      Partial match fallback.
+    */
+
+    return list.findIndex(
+      channel => {
+
+        const name =
+          normalizeName(
+            channel.name
+          );
+
+
+        return (
+          name.includes("star sports") &&
+          name.includes("2")
+        );
+      }
+    );
   }
 
-  function setupCricketHero(){
 
-    if(!Array.isArray(channels) || !channels.length)
+  function attachHero(){
+
+    const hero =
+      document.getElementById(
+        "fanHero"
+      );
+
+
+    if(!hero){
       return false;
+    }
 
-    const index=findSportsChannel();
 
-    const title=document.getElementById("fanHeroTitle");
-    const meta=document.getElementById("fanHeroMeta");
-    const desc=document.getElementById("fanHeroDescription");
-    const label=document.querySelector(".fan-hero-label");
-    const adTitle=document.querySelector(".fan-ad-title");
-    const watch=document.querySelector(".fan-hero-watch");
+    /*
+      Remove any old inline background
+      dynamically set by previous hero code.
+    */
 
-    if(title)
-      title.textContent=MATCH_TITLE;
+    const bg =
+      document.getElementById(
+        "fanHeroBg"
+      );
 
-    if(meta)
-      meta.textContent=
-        index>=0
-        ? (channels[index].name+" • LIVE")
-        : "Star Sports 2 • Live Sports";
 
-    if(desc)
-      desc.textContent=
-        "Watch the live cricket channel on FAN TV.";
+    if(bg){
 
-    if(label)
-      label.textContent="LIVE CRICKET";
+      bg.style.backgroundImage =
+        "none";
+    }
 
-    if(adTitle)
-      adTitle.textContent="LIVE";
 
-    if(watch){
-      watch.textContent="▶ Watch Live";
+    /*
+      Remove old inline click handlers.
+    */
 
-      watch.onclick=function(){
+    hero.onclick =
+      null;
 
-        const i=findSportsChannel();
 
-        if(i>=0){
-          playChannel(i,true);
-        }else{
-          alert("Star Sports 2 is not available in the current playlist.");
+    hero.style.cursor =
+      "pointer";
+
+
+    hero.onclick =
+      function(event){
+
+        event.preventDefault();
+
+
+        const index =
+          findStarSports2();
+
+
+        if(index < 0){
+
+          alert(
+            "Star Sports 2 is currently not available in this playlist."
+          );
+
+          return;
+        }
+
+
+        /*
+          Stream starts HERE only.
+          Never during page load.
+        */
+
+        if(
+          typeof playChannel ===
+          "function"
+        ){
+
+          playChannel(
+            index,
+            true
+          );
         }
       };
-    }
+
 
     return true;
   }
 
-  const timer=setInterval(()=>{
-    if(setupCricketHero())
-      clearInterval(timer);
-  },200);
+
+  /*
+    Attach UI handler only.
+    NO playChannel() here.
+  */
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      attachHero,
+      {once:true}
+    );
+
+  }else{
+
+    attachHero();
+  }
+
+
+  /*
+    Safety:
+    pause any video accidentally started
+    before the user interacts with FAN TV.
+  */
+
+  let userStartedPlayback =
+    false;
+
+
+  document.addEventListener(
+    "pointerdown",
+    function(){
+      userStartedPlayback = true;
+    },
+    {
+      once:true,
+      capture:true
+    }
+  );
+
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      if(userStartedPlayback){
+        return;
+      }
+
+
+      const video =
+        document.querySelector(
+          "video"
+        );
+
+
+      if(
+        video &&
+        !video.paused
+      ){
+
+        try{
+          video.pause();
+        }catch(e){}
+      }
+    },
+    {
+      once:true
+    }
+  );
 
 })();
+
 </script>
 </body>
 </html>
+
 
 
 
