@@ -7,3 +7,5 @@ index.*BACKUP*.html
 index.before*.html
 server.backup.js
 test.m3u
+.vercel
+.env*
