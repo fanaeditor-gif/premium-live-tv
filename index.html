@@ -1228,6 +1228,58 @@ body:not(.idle) #fanCleanHero{
   }
 }
 </style>
+<style id="FAN_SAFE_HERO_FIX">
+/* SAFE UI PATCH — DOES NOT CHANGE HLS/PLAYER JS */
+
+body.idle #fanCleanHero,
+body.idle #fanHero{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  width:100%!important;
+  min-height:280px!important;
+  height:min(34vw,430px)!important;
+  margin:0 0 24px!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  background-image:url("./hero-cricket.png")!important;
+  background-position:center!important;
+  background-size:cover!important;
+  background-repeat:no-repeat!important;
+}
+
+body:not(.idle) #fanCleanHero,
+body:not(.idle) #fanHero{
+  display:none!important;
+}
+
+#fanCleanHero::before,
+#fanCleanHero::after{
+  pointer-events:none!important;
+}
+
+#video{
+  background:#000;
+  transform:translateZ(0);
+  backface-visibility:hidden;
+}
+
+.channel img,
+.card img{
+  content-visibility:auto;
+}
+
+@media(max-width:900px){
+  body.idle #fanCleanHero,
+  body.idle #fanHero{
+    min-height:190px!important;
+    height:32vw!important;
+    max-height:300px!important;
+    border-radius:14px!important;
+  }
+}
+</style>
 </head>
 
 <body class="idle">
@@ -3383,6 +3435,7 @@ window.addEventListener(
 
 </body>
 </html>
+
 
 
 
