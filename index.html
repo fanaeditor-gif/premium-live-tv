@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Live TV</title>
+<title>FAN TV</title>
 
 <meta name="theme-color" content="#0a0612">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,6 +203,686 @@ body.idle .ch-logo,body.idle .ch-fallback{height:88px}
   body.idle .channels{grid-template-columns:repeat(auto-fill,minmax(110px,1fr));padding:6px 14px 24px}
 }
 </style>
+
+<style id="fantv-final-ui">
+
+/* =========================================================
+   FAN TV - FINAL PREMIUM TV UI
+========================================================= */
+
+:root{
+  --fan-bg:#07070b;
+  --fan-panel:#101015;
+  --fan-card:#15151c;
+  --fan-line:rgba(255,255,255,.08);
+  --fan-text:#ffffff;
+  --fan-muted:#94949e;
+  --fan-accent:#ff1744;
+}
+
+/* PAGE */
+
+html,
+body{
+  width:100%;
+  min-height:100%;
+  margin:0;
+  background:var(--fan-bg)!important;
+}
+
+body{
+  overflow:hidden!important;
+}
+
+.app{
+  background:
+    radial-gradient(
+      900px 500px at 10% -10%,
+      rgba(255,23,68,.10),
+      transparent 60%
+    ),
+    #07070b!important;
+}
+
+/* HEADER */
+
+.header{
+  height:72px!important;
+  padding:0 30px!important;
+  background:rgba(7,7,11,.92)!important;
+  border-bottom:1px solid var(--fan-line)!important;
+  backdrop-filter:blur(24px)!important;
+}
+
+.brand{
+  min-width:0!important;
+}
+
+.brand-logo{
+  width:42px!important;
+  height:42px!important;
+  border-radius:12px!important;
+  background:linear-gradient(135deg,#ff1744,#c5002e)!important;
+  box-shadow:0 8px 30px rgba(255,23,68,.25)!important;
+}
+
+.brand-name{
+  font-size:20px!important;
+  font-weight:800!important;
+}
+
+.brand-sub{
+  color:#888!important;
+}
+
+/* MAIN */
+
+.main{
+  display:block!important;
+  height:calc(100vh - 72px)!important;
+}
+
+/* =========================================================
+   HOME / CHANNEL BROWSER
+========================================================= */
+
+body.idle .sidebar{
+  width:100%!important;
+  height:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  border:0!important;
+  background:transparent!important;
+}
+
+body.idle .content{
+  display:none!important;
+}
+
+body.idle .side-top{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:25px 32px 12px!important;
+}
+
+body.idle .side-heading{
+  margin-bottom:16px!important;
+}
+
+body.idle .side-title{
+  font-size:28px!important;
+  letter-spacing:-.8px!important;
+}
+
+#channelCount{
+  font-size:12px!important;
+}
+
+/* LIVE / FAVORITES */
+
+.tabs{
+  width:310px!important;
+  grid-template-columns:1fr 1fr!important;
+  background:#121218!important;
+  border:1px solid var(--fan-line)!important;
+}
+
+.tab{
+  height:38px!important;
+}
+
+.tab.active{
+  background:#fff!important;
+  color:#08080c!important;
+  box-shadow:none!important;
+}
+
+/* CATEGORY ROW */
+
+.groups{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:4px 32px 18px!important;
+  gap:9px!important;
+}
+
+.group{
+  height:36px!important;
+  padding:0 17px!important;
+  background:#121218!important;
+  border:1px solid var(--fan-line)!important;
+  color:#aaa!important;
+}
+
+.group:hover{
+  background:#1d1d25!important;
+  color:white!important;
+}
+
+.group.active{
+  background:#fff!important;
+  color:#08080c!important;
+}
+
+/* =========================================================
+   FIX CHANNEL GRID
+========================================================= */
+
+.channels,
+body.idle .channels{
+  flex:1!important;
+  width:100%!important;
+  max-width:none!important;
+
+  margin:0!important;
+
+  padding:
+    6px
+    32px
+    45px!important;
+
+  display:grid!important;
+
+  grid-template-columns:
+    repeat(
+      auto-fill,
+      minmax(170px,1fr)
+    )!important;
+
+  grid-auto-rows:auto!important;
+
+  gap:18px!important;
+
+  align-content:start!important;
+  align-items:start!important;
+
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
+
+/* =========================================================
+   CHANNEL CARD
+========================================================= */
+
+.channel,
+body.idle .channel{
+
+  position:relative!important;
+
+  width:100%!important;
+
+  height:170px!important;
+  min-height:170px!important;
+  max-height:170px!important;
+
+  margin:0!important;
+
+  padding:0!important;
+
+  display:flex!important;
+  flex-direction:column!important;
+
+  overflow:hidden!important;
+
+  border-radius:16px!important;
+
+  border:1px solid var(--fan-line)!important;
+
+  background:#121218!important;
+
+  transform:none!important;
+
+  box-shadow:none!important;
+
+  cursor:pointer!important;
+}
+
+/* Hover like TV apps */
+
+.channel:hover,
+.channel.focused{
+
+  transform:translateY(-3px) scale(1.015)!important;
+
+  border-color:rgba(255,255,255,.28)!important;
+
+  background:#191920!important;
+
+  box-shadow:
+    0 14px 35px
+    rgba(0,0,0,.35)!important;
+}
+
+/* Selected channel */
+
+.channel.active{
+
+  border:2px solid #ff1744!important;
+
+  background:#17171e!important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(255,23,68,.10)!important;
+}
+
+/* =========================================================
+   LOGO AREA
+========================================================= */
+
+.ch-logo,
+.ch-fallback,
+body.idle .ch-logo,
+body.idle .ch-fallback{
+
+  display:block!important;
+
+  width:100%!important;
+
+  height:112px!important;
+  min-height:112px!important;
+  max-height:112px!important;
+
+  margin:0!important;
+
+  padding:18px!important;
+
+  flex:none!important;
+
+  object-fit:contain!important;
+
+  border:0!important;
+
+  border-radius:
+    15px
+    15px
+    0
+    0!important;
+
+  background:#f4f4f5!important;
+}
+
+.ch-fallback{
+
+  display:flex!important;
+
+  align-items:center!important;
+  justify-content:center!important;
+
+  font-size:34px!important;
+
+  color:white!important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ff1744,
+      #8f001f
+    )!important;
+}
+
+/* =========================================================
+   CHANNEL NAME AREA
+========================================================= */
+
+.ch-info{
+
+  width:100%!important;
+
+  height:58px!important;
+  min-height:58px!important;
+
+  padding:9px 12px!important;
+
+  display:block!important;
+
+  overflow:hidden!important;
+
+  background:#15151c!important;
+}
+
+.ch-name{
+
+  width:100%!important;
+
+  margin:0!important;
+
+  overflow:hidden!important;
+
+  white-space:nowrap!important;
+
+  text-overflow:ellipsis!important;
+
+  font-size:13px!important;
+
+  line-height:18px!important;
+
+  font-weight:700!important;
+
+  color:#fff!important;
+}
+
+.ch-group{
+
+  width:100%!important;
+
+  margin-top:3px!important;
+
+  overflow:hidden!important;
+
+  white-space:nowrap!important;
+
+  text-overflow:ellipsis!important;
+
+  font-size:10px!important;
+
+  line-height:14px!important;
+
+  color:#85858f!important;
+}
+
+/* LIVE badge */
+
+.ch-live{
+
+  top:9px!important;
+  left:9px!important;
+
+  padding:4px 7px!important;
+
+  border-radius:6px!important;
+
+  background:#e50914!important;
+
+  font-size:9px!important;
+}
+
+/* favorite */
+
+.ch-star{
+
+  top:9px!important;
+  right:10px!important;
+
+  padding:4px 7px!important;
+
+  border-radius:7px!important;
+
+  background:rgba(0,0,0,.65)!important;
+}
+
+/* =========================================================
+   PLAYER MODE
+========================================================= */
+
+body:not(.idle) .main{
+
+  display:grid!important;
+
+  grid-template-columns:
+    330px
+    minmax(0,1fr)!important;
+}
+
+body:not(.idle) .sidebar{
+
+  min-width:0!important;
+
+  border-right:
+    1px solid
+    var(--fan-line)!important;
+
+  background:#0c0c11!important;
+}
+
+body:not(.idle) .side-top{
+
+  padding:
+    18px
+    16px
+    12px!important;
+}
+
+body:not(.idle) .groups{
+
+  padding:
+    0
+    16px
+    14px!important;
+}
+
+/* sidebar cards while watching */
+
+body:not(.idle) .channels{
+
+  display:flex!important;
+
+  flex-direction:column!important;
+
+  gap:8px!important;
+
+  padding:
+    4px
+    12px
+    20px!important;
+}
+
+body:not(.idle) .channel{
+
+  height:82px!important;
+  min-height:82px!important;
+
+  display:grid!important;
+
+  grid-template-columns:
+    94px
+    minmax(0,1fr)!important;
+
+  align-items:center!important;
+}
+
+body:not(.idle) .ch-logo,
+body:not(.idle) .ch-fallback{
+
+  width:94px!important;
+
+  height:80px!important;
+  min-height:80px!important;
+
+  padding:12px!important;
+
+  border-radius:
+    14px
+    0
+    0
+    14px!important;
+}
+
+body:not(.idle) .ch-info{
+
+  width:auto!important;
+
+  height:auto!important;
+  min-height:0!important;
+
+  padding:10px 12px!important;
+
+  background:transparent!important;
+}
+
+/* PLAYER */
+
+.content{
+  padding:18px!important;
+  gap:12px!important;
+  background:#08080c!important;
+}
+
+.player{
+
+  border-radius:20px!important;
+
+  border:
+    1px solid
+    rgba(255,255,255,.09)!important;
+
+  background:#000!important;
+
+  box-shadow:
+    0 24px 80px
+    rgba(0,0,0,.55)!important;
+}
+
+.controls{
+
+  min-height:68px!important;
+
+  border-radius:18px!important;
+
+  background:#111117!important;
+
+  border:
+    1px solid
+    var(--fan-line)!important;
+}
+
+/* scrollbar */
+
+.channels::-webkit-scrollbar{
+  width:6px!important;
+}
+
+.channels::-webkit-scrollbar-track{
+  background:transparent!important;
+}
+
+.channels::-webkit-scrollbar-thumb{
+  background:#33333d!important;
+  border-radius:10px!important;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+  .channels,
+  body.idle .channels{
+
+    grid-template-columns:
+      repeat(
+        auto-fill,
+        minmax(150px,1fr)
+      )!important;
+  }
+
+  body:not(.idle) .main{
+    grid-template-columns:
+      290px
+      minmax(0,1fr)!important;
+  }
+}
+
+@media(max-width:760px){
+
+  body{
+    overflow:auto!important;
+  }
+
+  .app{
+    min-height:100vh!important;
+    height:auto!important;
+  }
+
+  .header{
+    height:64px!important;
+    padding:0 15px!important;
+  }
+
+  .main{
+    height:auto!important;
+  }
+
+  body.idle .side-top{
+    padding:
+      20px
+      15px
+      10px!important;
+  }
+
+  body.idle .groups{
+    padding:
+      3px
+      15px
+      15px!important;
+  }
+
+  .channels,
+  body.idle .channels{
+
+    padding:
+      4px
+      15px
+      30px!important;
+
+    gap:11px!important;
+
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0,1fr)
+      )!important;
+  }
+
+  .channel,
+  body.idle .channel{
+
+    height:150px!important;
+    min-height:150px!important;
+    max-height:150px!important;
+  }
+
+  .ch-logo,
+  .ch-fallback,
+  body.idle .ch-logo,
+  body.idle .ch-fallback{
+
+    height:98px!important;
+    min-height:98px!important;
+    max-height:98px!important;
+
+    padding:15px!important;
+  }
+
+  .ch-info{
+
+    height:52px!important;
+    min-height:52px!important;
+
+    padding:7px 9px!important;
+  }
+
+  body:not(.idle) .main{
+    display:flex!important;
+    flex-direction:column!important;
+  }
+
+  body:not(.idle) .content{
+    order:1!important;
+    height:55vh!important;
+  }
+
+  body:not(.idle) .sidebar{
+    order:2!important;
+    height:500px!important;
+  }
+}
+
+</style>
+
 </head>
 
 <body class="idle">
@@ -215,30 +895,12 @@ body.idle .ch-logo,body.idle .ch-fallback{height:88px}
     <div class="brand-logo">TV</div>
 
     <div>
-      <div class="brand-name">Live TV</div>
-      <div class="brand-sub">Watch live, anywhere</div>
+      <div class="brand-name">FAN TV</div>
+      <div class="brand-sub">Live television</div>
     </div>
   </div>
 
-  <div class="search-wrap">
-    <span class="search-icon">⌕</span>
-
-    <input
-      id="search"
-      class="search"
-      type="text"
-      autocomplete="off"
-      placeholder="Search channels..."
-    >
-
-    <button
-      id="clearSearch"
-      class="clear-search"
-      onclick="clearSearch()"
-    >×</button>
-  </div>
-
-  <div class="header-space"></div>
+  <input id="search" type="hidden" value=""><button id="clearSearch" type="button" style="display:none"></button><div class="header-space"></div>
 
   <div class="header-live">
     <span class="green-dot"></span>
@@ -2355,3 +3017,4 @@ window.addEventListener(
 
 </body>
 </html>
+
