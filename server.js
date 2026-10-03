@@ -1,8 +1,82 @@
 ﻿const express = require("express");
+const helmet = require("helmet");
+const compression = require("compression");
+const rateLimit = require("express-rate-limit");
 const path = require("path");
 const { Readable } = require("stream");
 
 const app = express();
+
+/* FAN_TV_SECURITY */
+
+app.disable("x-powered-by");
+
+app.set("trust proxy", 1);
+
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false
+  })
+);
+
+app.use(
+  compression({
+    threshold: 1024
+  })
+);
+
+/*
+  General API protection.
+  High enough for normal TV use,
+  while reducing obvious automated abuse.
+*/
+const apiLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  limit: 600,
+  standardHeaders: true,
+  legacyHeaders: false,
+  skip: req =>
+    req.path === "/" ||
+    req.path.startsWith("/hls/")
+});
+
+app.use(apiLimiter);
+
+/*
+  Playlist memory cache.
+  Database is NOT used for playlist data.
+*/
+const playlistCache = new Map();
+
+const PLAYLIST_CACHE_MS =
+  10 * 60 * 1000;
+
+/*
+  Limit upstream waiting time.
+*/
+const UPSTREAM_TIMEOUT_MS =
+  20000;
+
+function fetchWithTimeout(url, options = {}) {
+
+  const controller =
+    new AbortController();
+
+  const timer =
+    setTimeout(
+      () => controller.abort(),
+      UPSTREAM_TIMEOUT_MS
+    );
+
+  return fetch(url, {
+    ...options,
+    signal: controller.signal
+  }).finally(() => {
+    clearTimeout(timer);
+  });
+}
 const PORT = process.env.PORT || 3000;
 
 const DEFAULT_UA =
@@ -10,7 +84,29 @@ const DEFAULT_UA =
   "AppleWebKit/537.36 (KHTML, like Gecko) " +
   "Chrome/149.0.0.0 Safari/537.36";
 
-app.use(express.static(__dirname));
+/* FAN_STATIC_CACHE */
+
+app.use(
+  express.static(
+    __dirname,
+    {
+      etag: true,
+      lastModified: true,
+      maxAge: "1h",
+      setHeaders: (res, filePath) => {
+
+        if (
+          filePath.endsWith(".html")
+        ) {
+          res.setHeader(
+            "Cache-Control",
+            "no-cache"
+          );
+        }
+      }
+    }
+  )
+);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
@@ -599,5 +695,6 @@ app.listen(PORT, () => {
 
   console.log("");
 });
+
 
 

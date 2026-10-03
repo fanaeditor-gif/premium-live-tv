@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+<!-- FAN_TV_CONNECTION_HINTS -->
+<meta name="theme-color" content="#07070b">
+<meta name="color-scheme" content="dark">
 <title>FAN TV</title>
 
 <meta name="theme-color" content="#0a0612">
@@ -2544,15 +2548,32 @@ function startStream(
     hls =
       new Hls({
 
-        enableWorker:true,
+        /* FAN_TV_FAST_MODE */
+
+enableWorker:true,
+
+/*
+  Start with the lowest available rendition.
+  HLS can increase quality automatically
+  when the connection allows it.
+*/
+startLevel:0,
+
+capLevelToPlayerSize:true,
+
+abrEwmaDefaultEstimate:500000,
+
+abrBandWidthFactor:0.8,
+
+abrBandWidthUpFactor:0.6,
 
         lowLatencyMode:false,
 
-        backBufferLength:30,
+        backBufferLength:15,
 
-        maxBufferLength:30,
+        maxBufferLength:15,
 
-        maxMaxBufferLength:60,
+        maxMaxBufferLength:30,
 
         manifestLoadingTimeOut:
           20000,
@@ -3350,5 +3371,6 @@ window.addEventListener(
 
 </body>
 </html>
+
 
 
