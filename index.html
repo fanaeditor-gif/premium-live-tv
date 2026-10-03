@@ -2514,250 +2514,156 @@ body.idle .group{
 
 </style>
 
+<style id="fantv-speed-hero-final">
 
-<style id="fantv-static-hero-final">
+/* =========================================================
+   FAN TV FAST HOME HERO
+   Image only - NO background video
+========================================================= */
 
 body.idle .fan-hero{
-    display:block!important;
-    position:relative!important;
+  display:block!important;
+  position:relative!important;
 
-    width:calc(100% - 40px)!important;
-    max-width:1500px!important;
+  width:calc(100% - 40px)!important;
+  max-width:1500px!important;
 
-    aspect-ratio:1920/768!important;
-    height:auto!important;
-    min-height:250px!important;
-    max-height:420px!important;
+  height:clamp(260px,31vw,430px)!important;
 
-    margin:16px auto 18px!important;
+  margin:16px auto 14px!important;
 
-    border-radius:20px!important;
+  padding:0!important;
 
-    overflow:hidden!important;
+  overflow:hidden!important;
 
-    border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:20px!important;
 
-    background:
-        url("./hero-cricket.png?v=3")
-        center center /
-        cover
-        no-repeat!important;
+  border:1px solid rgba(255,255,255,.08)!important;
 
-    box-shadow:
-        0 18px 55px
-        rgba(0,0,0,.28)!important;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(3,6,12,.18),
+      rgba(3,6,12,.02)
+    ),
+    url("./hero-cricket.png")!important;
 
-    cursor:pointer!important;
+  background-size:cover!important;
+  background-position:center!important;
+  background-repeat:no-repeat!important;
+
+  box-shadow:
+    0 18px 55px
+    rgba(0,0,0,.28)!important;
+
+  cursor:pointer!important;
 }
 
-/* Do not place video/logo layers over artwork */
+/*
+  Old dynamic hero layers are disabled.
+  This prevents channel logos/backgrounds from
+  replacing the cricket artwork.
+*/
 
 body.idle .fan-hero-bg,
 body.idle .fan-hero-shade,
 body.idle .fan-hero-content,
 body.idle .fan-ad-slot{
-    display:none!important;
+  display:none!important;
 }
 
-/* Player mode */
+/* lightweight play overlay */
+
+body.idle .fan-hero::after{
+  content:"Watch Live";
+
+  position:absolute;
+
+  left:50%;
+  bottom:22px;
+
+  transform:translateX(-50%);
+
+  display:flex;
+
+  align-items:center;
+  justify-content:center;
+
+  min-width:135px;
+  height:42px;
+
+  padding:0 20px;
+
+  border-radius:999px;
+
+  background:rgba(230,10,30,.94);
+
+  color:#fff;
+
+  font-size:12px;
+  font-weight:850;
+
+  box-shadow:
+    0 8px 25px
+    rgba(229,9,20,.30);
+
+  pointer-events:none;
+}
+
+/*
+  While watching, hero disappears completely.
+*/
 
 body:not(.idle) .fan-hero{
-    display:none!important;
+  display:none!important;
 }
+
+
+/* =========================================================
+   PERFORMANCE
+========================================================= */
+
+.ch-logo,
+.fan-top-logo img{
+  content-visibility:auto;
+}
+
+body.idle .channel{
+  contain:layout paint;
+}
+
+body.idle .channels{
+  content-visibility:auto;
+}
+
+
+/* =========================================================
+   MOBILE HERO
+========================================================= */
 
 @media(max-width:760px){
 
-    body.idle .fan-hero{
-        width:calc(100% - 20px)!important;
+  body.idle .fan-hero{
+    width:calc(100% - 20px)!important;
 
-        min-height:180px!important;
+    height:210px!important;
 
-        border-radius:14px!important;
+    margin:10px auto 12px!important;
 
-        background-size:cover!important;
-        background-position:center!important;
-    }
-}
+    border-radius:15px!important;
 
-</style>
+    background-size:cover!important;
+    background-position:center!important;
+  }
 
-<style id="fantv-real-player-final">
+  body.idle .fan-hero::after{
+    height:38px;
+    min-width:115px;
 
-/* =========================================
-   FAN TV - REAL PLAYER FINAL FIX
-   Actual element: #player.player
-========================================= */
+    bottom:13px;
 
-body:not(.idle) .main{
-    display:grid!important;
-    grid-template-columns:320px minmax(0,1fr)!important;
-    width:100%!important;
-    min-height:calc(100vh - 72px)!important;
-    background:#07070b!important;
-}
-
-body:not(.idle) .sidebar{
-    width:320px!important;
-    min-width:320px!important;
-    height:calc(100vh - 72px)!important;
-    overflow:hidden!important;
-}
-
-body:not(.idle) .content{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    width:100%!important;
-    min-width:0!important;
-    padding:18px!important;
-    box-sizing:border-box!important;
-}
-
-/* ACTUAL PLAYER */
-
-body:not(.idle) #player.player{
-    display:block!important;
-    position:relative!important;
-
-    width:min(100%,1280px)!important;
-    height:auto!important;
-    aspect-ratio:16 / 9!important;
-
-    min-width:0!important;
-    min-height:0!important;
-    max-height:calc(100vh - 170px)!important;
-
-    margin:0 auto!important;
-    padding:0!important;
-
-    overflow:hidden!important;
-
-    border-radius:18px!important;
-    background:#000!important;
-
-    border:1px solid rgba(255,255,255,.08)!important;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.45)!important;
-}
-
-/* REAL VIDEO */
-
-body:not(.idle) #player #video{
-    display:block!important;
-
-    position:absolute!important;
-    inset:0!important;
-
-    width:100%!important;
-    height:100%!important;
-
-    min-width:0!important;
-    min-height:0!important;
-    max-width:none!important;
-    max-height:none!important;
-
-    margin:0!important;
-    padding:0!important;
-
-    object-fit:contain!important;
-    object-position:center!important;
-
-    background:#000!important;
-
-    opacity:1!important;
-    visibility:visible!important;
-
-    transform:none!important;
-    filter:none!important;
-
-    z-index:1!important;
-}
-
-/* PLAYER OVERLAYS */
-
-body:not(.idle) #player .gradient{
-    position:absolute!important;
-    inset:0!important;
-    z-index:2!important;
-    pointer-events:none!important;
-}
-
-body:not(.idle) #player .placeholder{
-    z-index:5!important;
-}
-
-body:not(.idle) #player .loader{
-    z-index:30!important;
-}
-
-body:not(.idle) #player .error{
-    z-index:35!important;
-}
-
-body:not(.idle) #player .live-badge{
-    z-index:40!important;
-}
-
-body:not(.idle) #player .player-info{
-    z-index:40!important;
-}
-
-/* CONTROLS BELOW PLAYER */
-
-body:not(.idle) .content > .controls{
-    width:min(100%,1280px)!important;
-    margin:12px auto 0!important;
-    box-sizing:border-box!important;
-}
-
-/* CHANNEL SIDEBAR */
-
-body:not(.idle) .channels{
-    overflow-y:auto!important;
-    overflow-x:hidden!important;
-    max-height:calc(100vh - 230px)!important;
-}
-
-/* Home hero/grid never covers player */
-
-body:not(.idle) .fan-hero,
-body:not(.idle) .fan-top-section{
-    display:none!important;
-}
-
-/* MOBILE */
-
-@media(max-width:800px){
-
-    body:not(.idle) .main{
-        display:flex!important;
-        flex-direction:column-reverse!important;
-        min-height:auto!important;
-    }
-
-    body:not(.idle) .sidebar{
-        width:100%!important;
-        min-width:0!important;
-        height:auto!important;
-    }
-
-    body:not(.idle) .content{
-        width:100%!important;
-        padding:10px!important;
-    }
-
-    body:not(.idle) #player.player{
-        width:100%!important;
-        max-width:none!important;
-        max-height:none!important;
-        aspect-ratio:16 / 9!important;
-        border-radius:12px!important;
-    }
-
-    body:not(.idle) .content > .controls{
-        width:100%!important;
-    }
+    font-size:11px;
+  }
 }
 
 </style>
@@ -4232,23 +4138,23 @@ enableWorker:true,
   HLS can increase quality automatically
   when the connection allows it.
 */
+startLevel:-1,
 
+capLevelToPlayerSize:true,
 
+abrEwmaDefaultEstimate:800000,
 
+abrBandWidthFactor:0.8,
 
-
-
-
-
-
+abrBandWidthUpFactor:0.6,
 
         lowLatencyMode:false,
 
-        backBufferLength:30,
+        backBufferLength:15,
 
-        maxBufferLength:30,
+        maxBufferLength:15,
 
-        maxMaxBufferLength:60,
+        maxMaxBufferLength:30,
 
         manifestLoadingTimeOut:
           20000,
@@ -6161,139 +6067,268 @@ setInterval(
 
 </script>
 
-
-<script id="fantv-static-hero-js">
+<script id="fantv-speed-hero-final-js">
 
 (function(){
 
-    function cleanName(value){
+  /*
+    IMPORTANT:
+    This script NEVER starts a channel on page load.
 
-        return String(value || "")
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g," ")
-            .trim();
+    The cricket stream starts only after
+    the user clicks the hero.
+  */
+
+  function normalizeName(value){
+
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g," ")
+      .trim();
+  }
+
+
+  function findStarSports2(){
+
+    if(
+      !Array.isArray(window.channels) &&
+      typeof channels === "undefined"
+    ){
+      return -1;
     }
 
 
-    function findStarSports2(){
-
-        if(
-            typeof channels === "undefined" ||
-            !Array.isArray(channels)
-        ){
-            return -1;
-        }
-
-
-        const exactNames = [
-            "star sports 2 hindi",
-            "star sports 2 hd",
-            "star sports 2"
-        ];
-
-
-        for(const wanted of exactNames){
-
-            const index =
-                channels.findIndex(
-                    channel =>
-                        cleanName(channel.name) ===
-                        wanted
-                );
-
-
-            if(index >= 0){
-                return index;
-            }
-        }
-
-
-        return channels.findIndex(
-            channel => {
-
-                const name =
-                    cleanName(channel.name);
-
-
-                return (
-                    name.includes("star sports") &&
-                    name.includes("2")
-                );
-            }
-        );
-    }
-
-
-    function setupHero(){
-
-        const hero =
-            document.getElementById(
-                "fanHero"
-            );
-
-
-        if(!hero){
-            return;
-        }
-
-
-        hero.onclick =
-            function(){
-
-                const index =
-                    findStarSports2();
-
-
-                if(index < 0){
-
-                    alert(
-                        "Star Sports 2 is not available in the current playlist."
-                    );
-
-                    return;
-                }
-
-
-                /*
-                  ONLY user click starts playback.
-                */
-
-                if(
-                    typeof playChannel ===
-                    "function"
-                ){
-
-                    playChannel(
-                        index,
-                        true
-                    );
-                }
-            };
-    }
+    const list =
+      typeof channels !== "undefined"
+        ? channels
+        : window.channels;
 
 
     if(
-        document.readyState ===
-        "loading"
+      !Array.isArray(list) ||
+      !list.length
     ){
+      return -1;
+    }
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            setupHero
+
+    const preferred = [
+
+      "star sports 2 hindi",
+
+      "star sports 2 hd",
+
+      "star sports 2"
+
+    ];
+
+
+    /*
+      Exact match first.
+    */
+
+    for(const wanted of preferred){
+
+      const index =
+        list.findIndex(
+          channel =>
+            normalizeName(channel.name) ===
+            wanted
         );
 
-    }else{
 
-        setupHero();
+      if(index >= 0){
+        return index;
+      }
     }
+
+
+    /*
+      Partial match fallback.
+    */
+
+    return list.findIndex(
+      channel => {
+
+        const name =
+          normalizeName(
+            channel.name
+          );
+
+
+        return (
+          name.includes("star sports") &&
+          name.includes("2")
+        );
+      }
+    );
+  }
+
+
+  function attachHero(){
+
+    const hero =
+      document.getElementById(
+        "fanHero"
+      );
+
+
+    if(!hero){
+      return false;
+    }
+
+
+    /*
+      Remove any old inline background
+      dynamically set by previous hero code.
+    */
+
+    const bg =
+      document.getElementById(
+        "fanHeroBg"
+      );
+
+
+    if(bg){
+
+      bg.style.backgroundImage =
+        "none";
+    }
+
+
+    /*
+      Remove old inline click handlers.
+    */
+
+    hero.onclick =
+      null;
+
+
+    hero.style.cursor =
+      "pointer";
+
+
+    hero.onclick =
+      function(event){
+
+        event.preventDefault();
+
+
+        const index =
+          findStarSports2();
+
+
+        if(index < 0){
+
+          alert(
+            "Star Sports 2 is currently not available in this playlist."
+          );
+
+          return;
+        }
+
+
+        /*
+          Stream starts HERE only.
+          Never during page load.
+        */
+
+        if(
+          typeof playChannel ===
+          "function"
+        ){
+
+          playChannel(
+            index,
+            true
+          );
+        }
+      };
+
+
+    return true;
+  }
+
+
+  /*
+    Attach UI handler only.
+    NO playChannel() here.
+  */
+
+  if(
+    document.readyState ===
+    "loading"
+  ){
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      attachHero,
+      {once:true}
+    );
+
+  }else{
+
+    attachHero();
+  }
+
+
+  /*
+    Safety:
+    pause any video accidentally started
+    before the user interacts with FAN TV.
+  */
+
+  let userStartedPlayback =
+    false;
+
+
+  document.addEventListener(
+    "pointerdown",
+    function(){
+      userStartedPlayback = true;
+    },
+    {
+      once:true,
+      capture:true
+    }
+  );
+
+
+  window.addEventListener(
+    "load",
+    function(){
+
+      if(userStartedPlayback){
+        return;
+      }
+
+
+      const video =
+        document.querySelector(
+          "video"
+        );
+
+
+      if(
+        video &&
+        !video.paused
+      ){
+
+        try{
+          video.pause();
+        }catch(e){}
+      }
+    },
+    {
+      once:true
+    }
+  );
 
 })();
 
 </script>
 </body>
 </html>
-
-
 
 
 
