@@ -3449,8 +3449,65 @@ window.addEventListener(
 
 </script>
 
+<style id="fan-home-safe">
+#fanHome{padding:24px 30px 8px}
+#fanHeroFinal{height:360px;border-radius:22px;background:url("/hero-cricket.png?v=20") center/cover no-repeat;box-shadow:0 16px 45px #0008;margin-bottom:28px}
+#fanTopTitle{font-size:24px;font-weight:800;margin:0 0 15px}
+#fanTopFinal{display:flex;gap:14px;overflow-x:auto;padding-bottom:18px;scrollbar-width:none}
+#fanTopFinal::-webkit-scrollbar{display:none}
+.fanTopCard{flex:0 0 155px;background:#15151b;border:1px solid #ffffff12;border-radius:16px;padding:12px;cursor:pointer}
+.fanTopCard img{width:100%;height:80px;object-fit:contain}
+.fanTopName{font-size:13px;font-weight:700;margin-top:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+body:not(.idle) #fanHome{display:none!important}
+@media(max-width:800px){#fanHome{padding:14px}#fanHeroFinal{height:210px}.fanTopCard{flex-basis:125px}}
+</style>
+<script id="fan-home-safe-js">
+document.addEventListener("DOMContentLoaded",function(){
+ if(document.getElementById("fanHome"))return;
+
+ var home=document.createElement("section");
+ home.id="fanHome";
+ home.innerHTML='<div id="fanHeroFinal"></div><div id="fanTopTitle">Top Channels</div><div id="fanTopFinal"></div>';
+
+ var heading=[...document.querySelectorAll("h1,h2,h3")].find(function(e){return e.textContent.trim()==="Channels"});
+ if(heading) heading.parentNode.insertBefore(home,heading);
+ else document.body.insertBefore(home,document.body.firstChild);
+
+ var tries=0;
+ var wait=setInterval(function(){
+   tries++;
+   if(typeof channels!=="undefined" && channels.length){
+     clearInterval(wait);
+     var box=document.getElementById("fanTopFinal");
+
+     channels.map(function(c,i){return {c:c,i:i}})
+       .filter(function(x){return /star\s*sports/i.test(x.c.name||"")})
+       .forEach(function(x){
+         var card=document.createElement("div");
+         card.className="fanTopCard";
+
+         var img=document.createElement("img");
+         img.loading="lazy";
+         img.src=x.c.logo||"";
+         img.alt=x.c.name||"Channel";
+
+         var n=document.createElement("div");
+         n.className="fanTopName";
+         n.textContent=x.c.name;
+
+         card.appendChild(img);
+         card.appendChild(n);
+         card.onclick=function(){playChannel(x.i,true)};
+         box.appendChild(card);
+       });
+   }
+   if(tries>60)clearInterval(wait);
+ },250);
+});
+</script>
 </body>
 </html>
+
 
 
 
