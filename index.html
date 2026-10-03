@@ -1280,6 +1280,22 @@ body:not(.idle) #fanHero{
   }
 }
 </style>
+<style id="HERO_FINAL_FIX">
+body.idle #fanCleanHero{
+ display:block!important;
+ visibility:visible!important;
+ opacity:1!important;
+ width:100%!important;
+ height:360px!important;
+ min-height:360px!important;
+ margin:0 0 24px!important;
+ border-radius:20px!important;
+ background:url("/hero-cricket.png") center center/cover no-repeat!important;
+ position:relative!important;
+ z-index:2!important;
+}
+body:not(.idle) #fanCleanHero{display:none!important}
+</style>
 </head>
 
 <body class="idle">
@@ -3435,6 +3451,7 @@ window.addEventListener(
 
 </body>
 </html>
+
 
 
 
