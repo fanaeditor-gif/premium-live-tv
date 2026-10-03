@@ -1940,167 +1940,578 @@ body:not(.idle) .fan-top-section{
 
 </style>
 
-<style id="fan-category-ui">
-/* FAN TV OTT CATEGORY HOME */
-body.idle .sidebar{
+
+<style id="fantv-final-home-v2">
+
+/* ==========================================================
+   FAN TV FINAL HOME
+   Hero -> Top Channels -> All Channels
+========================================================== */
+
+body{
+  background:#07070b!important;
+}
+
+/* ----------------------------------------------------------
+   HERO - smaller, cleaner
+---------------------------------------------------------- */
+
+body.idle .fan-hero{
+  display:block!important;
+  position:relative!important;
+
+  width:calc(100% - 40px)!important;
+  max-width:1500px!important;
+  height:250px!important;
+
+  margin:18px auto 8px!important;
+
+  border-radius:20px!important;
+  overflow:hidden!important;
+
+  background:
+    radial-gradient(circle at 18% 40%,rgba(229,9,20,.12),transparent 32%),
+    linear-gradient(110deg,#111117,#08080c)!important;
+
+  border:1px solid rgba(255,255,255,.07)!important;
+  box-shadow:none!important;
+}
+
+body.idle .fan-hero-content{
+  left:30px!important;
+  top:50%!important;
+  width:min(610px,58%)!important;
+}
+
+body.idle .fan-hero-logo-wrap{
+  width:82px!important;
+  height:82px!important;
+  border-radius:18px!important;
+}
+
+body.idle #fanHeroTitle{
+  font-size:34px!important;
+}
+
+body.idle #fanHeroDescription{
+  margin:7px 0 13px!important;
+}
+
+body.idle .fan-ad-slot{
+  right:26px!important;
+  width:230px!important;
+  height:125px!important;
+  border-radius:16px!important;
+}
+
+/* Hero is hidden while actual player is open */
+body:not(.idle) .fan-hero{
   display:none!important;
 }
-body.idle .layout{
+
+/* ----------------------------------------------------------
+   OLD TOP SECTION
+
+   We use it as our Top Channels section.
+---------------------------------------------------------- */
+
+body.idle .fan-top-section{
+  display:block!important;
+
+  width:calc(100% - 40px)!important;
+  max-width:1500px!important;
+
+  margin:0 auto!important;
+  padding:22px 0 8px!important;
+}
+
+body:not(.idle) .fan-top-section{
+  display:none!important;
+}
+
+.fan-section-title{
+  font-size:20px!important;
+  font-weight:850!important;
+  letter-spacing:-.3px!important;
+}
+
+.fan-section-sub{
+  font-size:10px!important;
+}
+
+.fan-section-heading{
+  margin-bottom:12px!important;
+}
+
+/* ----------------------------------------------------------
+   TOP CHANNEL ROW
+---------------------------------------------------------- */
+
+.fan-top-channels{
+  display:flex!important;
+
+  gap:12px!important;
+
+  overflow-x:auto!important;
+
+  scroll-behavior:smooth!important;
+  scroll-snap-type:x proximity!important;
+
+  padding:2px 2px 12px!important;
+
+  scrollbar-width:none!important;
+}
+
+.fan-top-channels::-webkit-scrollbar{
+  display:none!important;
+}
+
+.fan-top-card{
+  flex:0 0 155px!important;
+
+  width:155px!important;
+  min-width:155px!important;
+
+  height:130px!important;
+
+  border-radius:15px!important;
+
+  background:#121218!important;
+
+  border:1px solid rgba(255,255,255,.08)!important;
+
+  overflow:hidden!important;
+
+  scroll-snap-align:start!important;
+
+  cursor:pointer!important;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease!important;
+}
+
+.fan-top-card:hover{
+  transform:translateY(-4px)!important;
+  border-color:rgba(229,9,20,.70)!important;
+}
+
+.fan-top-logo{
+  width:100%!important;
+  height:88px!important;
+
+  padding:14px!important;
+
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+
+  background:
+    radial-gradient(circle at center,#292931,#121217)!important;
+}
+
+.fan-top-logo img{
+  width:100%!important;
+  height:100%!important;
+
+  object-fit:contain!important;
+
   display:block!important;
 }
+
+.fan-top-name{
+  height:42px!important;
+
+  display:flex!important;
+  align-items:center!important;
+
+  padding:0 10px!important;
+
+  font-size:11px!important;
+  font-weight:750!important;
+
+  color:#fff!important;
+
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+/* ----------------------------------------------------------
+   RESTORE ORIGINAL HOME LAYOUT
+
+   Previous patch hid sidebar.
+---------------------------------------------------------- */
+
+body.idle .layout{
+  display:grid!important;
+}
+
+body.idle .sidebar{
+  display:flex!important;
+}
+
 body.idle .main{
-  width:100%!important;
-  max-width:none!important;
+  display:flex!important;
+}
+
+/* Original player can stay hidden in idle mode */
+body.idle .player-shell{
+  display:none!important;
+}
+
+/* ----------------------------------------------------------
+   ALL CHANNELS AREA
+---------------------------------------------------------- */
+
+body.idle .sidebar{
+  width:calc(100% - 40px)!important;
+  max-width:1500px!important;
+
+  height:auto!important;
+
+  margin:14px auto 50px!important;
+
+  padding:0!important;
+
+  border:0!important;
+
+  background:transparent!important;
+}
+
+body.idle .sidebar-head{
+  padding:0 0 13px!important;
+}
+
+body.idle .channels{
+  display:grid!important;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(165px,1fr))!important;
+
+  gap:14px!important;
+
+  overflow:visible!important;
+
   padding:0!important;
 }
-body.idle .player-shell,
-body.idle .controls{
+
+body.idle .channel{
+  display:grid!important;
+
+  grid-template-columns:1fr!important;
+  grid-template-rows:105px 46px!important;
+
+  width:100%!important;
+
+  height:151px!important;
+  min-height:151px!important;
+  max-height:151px!important;
+
+  padding:0!important;
+  margin:0!important;
+
+  gap:0!important;
+
+  position:relative!important;
+
+  overflow:hidden!important;
+
+  border-radius:14px!important;
+
+  background:#121218!important;
+
+  border:1px solid rgba(255,255,255,.07)!important;
+
+  transition:
+    transform .18s ease,
+    border-color .18s ease!important;
+}
+
+body.idle .channel:hover{
+  transform:translateY(-4px)!important;
+
+  border-color:
+    rgba(229,9,20,.65)!important;
+}
+
+body.idle .ch-logo,
+body.idle .ch-fallback{
+  grid-column:1!important;
+  grid-row:1!important;
+
+  width:100%!important;
+  height:105px!important;
+
+  min-height:105px!important;
+  max-height:105px!important;
+
+  margin:0!important;
+
+  padding:16px!important;
+
+  object-fit:contain!important;
+
+  background:
+    radial-gradient(circle at center,#292931,#121217)!important;
+}
+
+body.idle .ch-info{
+  grid-column:1!important;
+  grid-row:2!important;
+
+  width:100%!important;
+  height:46px!important;
+
+  padding:7px 10px!important;
+
+  overflow:hidden!important;
+
+  background:
+    linear-gradient(180deg,#15151b,#0e0e12)!important;
+}
+
+body.idle .ch-name{
+  font-size:11px!important;
+  font-weight:750!important;
+
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+body.idle .ch-group{
+  margin-top:2px!important;
+
+  font-size:8px!important;
+
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+body.idle .ch-live{
+  position:absolute!important;
+
+  top:8px!important;
+  left:8px!important;
+
+  padding:3px 5px!important;
+
+  border-radius:5px!important;
+
+  font-size:7px!important;
+
+  background:#e50914!important;
+  color:#fff!important;
+}
+
+body.idle .ch-star{
+  position:absolute!important;
+
+  top:7px!important;
+  right:8px!important;
+}
+
+/* ----------------------------------------------------------
+   SEARCH - force visible and usable
+---------------------------------------------------------- */
+
+.header .search-wrap{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+
+  width:min(420px,42vw)!important;
+
+  position:relative!important;
+}
+
+.header .search{
+  display:block!important;
+
+  width:100%!important;
+  height:40px!important;
+
+  padding:0 40px 0 40px!important;
+
+  border-radius:12px!important;
+
+  border:1px solid rgba(255,255,255,.09)!important;
+
+  outline:none!important;
+
+  background:#111116!important;
+
+  color:#fff!important;
+
+  font-size:12px!important;
+}
+
+.header .search:focus{
+  border-color:rgba(229,9,20,.70)!important;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(229,9,20,.10)!important;
+}
+
+.header .search::placeholder{
+  color:#777780!important;
+}
+
+.header .search-icon{
+  position:absolute!important;
+
+  left:14px!important;
+  top:50%!important;
+
+  transform:translateY(-50%)!important;
+
+  z-index:2!important;
+
+  pointer-events:none!important;
+}
+
+.header .clear-search{
+  position:absolute!important;
+
+  right:11px!important;
+  top:50%!important;
+
+  transform:translateY(-50%)!important;
+
+  z-index:3!important;
+}
+
+/* ----------------------------------------------------------
+   GROUP FILTERS
+
+   Keep them compact instead of removing useful controls.
+---------------------------------------------------------- */
+
+body.idle .groups{
+  max-height:92px!important;
+
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+
+  display:flex!important;
+  flex-wrap:nowrap!important;
+
+  gap:7px!important;
+
+  padding-bottom:8px!important;
+
+  scrollbar-width:none!important;
+}
+
+body.idle .groups::-webkit-scrollbar{
   display:none!important;
 }
-body:not(.idle) #fanCategoryHome{
-  display:none!important;
+
+body.idle .group{
+  flex:0 0 auto!important;
 }
-#fanCategoryHome{
-  width:100%;
-  padding:8px 0 60px;
-}
-.fan-row{
-  position:relative;
-  margin:0 0 32px;
-}
-.fan-row-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 34px 13px;
-}
-.fan-row-title{
-  margin:0;
-  font-size:21px;
-  line-height:1.2;
-  font-weight:800;
-  color:#fff;
-  letter-spacing:-.3px;
-}
-.fan-row-controls{
-  display:flex;
-  gap:7px;
-}
-.fan-arrow{
-  width:35px;
-  height:35px;
-  border:1px solid rgba(255,255,255,.11);
-  border-radius:50%;
-  background:rgba(255,255,255,.07);
-  color:#fff;
-  font-size:19px;
-  cursor:pointer;
-  transition:.2s ease;
-}
-.fan-arrow:hover{
-  background:#e50914;
-  border-color:#e50914;
-  transform:scale(1.05);
-}
-.fan-row-track{
-  display:flex;
-  gap:15px;
-  overflow-x:auto;
-  scroll-behavior:smooth;
-  scrollbar-width:none;
-  padding:2px 34px 10px;
-  overscroll-behavior-inline:contain;
-}
-.fan-row-track::-webkit-scrollbar{
-  display:none;
-}
-.fan-cat-card{
-  flex:0 0 178px;
-  min-width:178px;
-  height:150px;
-  position:relative;
-  border-radius:14px;
-  overflow:hidden;
-  cursor:pointer;
-  background:linear-gradient(145deg,#17171d,#0d0d11);
-  border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 9px 24px rgba(0,0,0,.25);
-  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
-}
-.fan-cat-card:hover{
-  transform:translateY(-5px) scale(1.025);
-  border-color:rgba(229,9,20,.75);
-  box-shadow:0 15px 34px rgba(0,0,0,.42);
-}
-.fan-cat-logo{
-  height:105px;
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:17px;
-  background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.09),transparent 67%);
-}
-.fan-cat-logo img{
-  display:block;
-  width:100%;
-  height:100%;
-  object-fit:contain;
-}
-.fan-cat-fallback{
-  width:62px;
-  height:62px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:16px;
-  background:linear-gradient(145deg,#e50914,#780007);
-  color:#fff;
-  font-size:27px;
-  font-weight:900;
-}
-.fan-cat-info{
-  height:45px;
-  padding:7px 10px 8px;
-  background:linear-gradient(180deg,rgba(20,20,25,.94),rgba(8,8,11,.99));
-}
-.fan-cat-name{
-  color:#fff;
-  font-size:13px;
-  line-height:16px;
-  font-weight:750;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.fan-cat-live{
-  margin-top:3px;
-  color:#ff4d57;
-  font-size:9px;
-  line-height:10px;
-  font-weight:900;
-  letter-spacing:.8px;
-}
-.fan-cat-empty{
-  padding:18px 34px;
-  color:rgba(255,255,255,.48);
-  font-size:13px;
-}
-@media(max-width:700px){
-  .fan-row{margin-bottom:25px}
-  .fan-row-head{padding:0 16px 10px}
-  .fan-row-title{font-size:18px}
-  .fan-row-controls{display:none}
-  .fan-row-track{padding:2px 16px 8px;gap:11px}
-  .fan-cat-card{
-    flex-basis:145px;
-    min-width:145px;
-    height:132px;
-    border-radius:12px;
+
+/* ----------------------------------------------------------
+   MOBILE
+---------------------------------------------------------- */
+
+@media(max-width:760px){
+
+  body.idle .fan-hero{
+    width:calc(100% - 20px)!important;
+    height:260px!important;
+    margin-top:10px!important;
   }
-  .fan-cat-logo{height:91px;padding:14px}
-  .fan-cat-info{height:41px}
+
+  body.idle .fan-hero-content{
+    left:18px!important;
+    right:18px!important;
+    top:20px!important;
+
+    width:auto!important;
+
+    transform:none!important;
+  }
+
+  body.idle .fan-hero-logo-wrap{
+    width:64px!important;
+    height:64px!important;
+  }
+
+  body.idle #fanHeroTitle{
+    font-size:25px!important;
+  }
+
+  body.idle .fan-ad-slot{
+    left:18px!important;
+    right:18px!important;
+
+    bottom:15px!important;
+    top:auto!important;
+
+    width:auto!important;
+    height:67px!important;
+
+    transform:none!important;
+  }
+
+  body.idle .fan-top-section{
+    width:calc(100% - 20px)!important;
+  }
+
+  .fan-top-card{
+    flex-basis:128px!important;
+
+    width:128px!important;
+    min-width:128px!important;
+
+    height:112px!important;
+  }
+
+  .fan-top-logo{
+    height:76px!important;
+  }
+
+  .fan-top-name{
+    height:36px!important;
+  }
+
+  body.idle .sidebar{
+    width:calc(100% - 20px)!important;
+  }
+
+  body.idle .channels{
+    grid-template-columns:
+      repeat(2,minmax(0,1fr))!important;
+
+    gap:10px!important;
+  }
+
+  body.idle .channel{
+    grid-template-rows:90px 44px!important;
+
+    height:134px!important;
+    min-height:134px!important;
+    max-height:134px!important;
+  }
+
+  body.idle .ch-logo,
+  body.idle .ch-fallback{
+    height:90px!important;
+    min-height:90px!important;
+    max-height:90px!important;
+  }
+
+  .header .search-wrap{
+    width:100%!important;
+    max-width:none!important;
+  }
+
 }
+
 </style>
 </head>
 
@@ -4991,188 +5402,519 @@ setInterval(
 
 </script>
 
-<script id="fan-category-js">
+
+<script id="fantv-final-home-v2-js">
+
 (function(){
-  const FAN_ROWS = [
-    {
-      title:"Hindi Entertainment",
-      keys:["entertainment","general","hindi"],
-      names:["star plus","sony entertainment","sony sab","zee tv","colors","&tv","dangal","star bharat"]
-    },
-    {
-      title:"Hindi Movies",
-      keys:["movies","movie"],
-      names:["zee cinema","star gold","sony max","colors cineplex","b4u movies","&pictures","dhinchaak"]
-    },
-    {
-      title:"Hindi News",
-      keys:["news"],
-      names:["aaj tak","abp news","india tv","news18 india","ndtv india","republic bharat","zee news","dd news","tv9 bharatvarsh"]
-    },
-    {
-      title:"Hindi Music",
-      keys:["music"],
-      names:["mtv","9xm","b4u music","zoom","mastiii","music india"]
-    },
-    {
-      title:"Sports",
-      keys:["sports","sport"],
-      names:["star sports","sony sports","dd sports","sports18","eurosport"]
-    }
+
+  /*
+    Exact priority requested for FAN TV.
+    Nothing new is downloaded here.
+    Channels are selected from the playlist
+    that FAN TV has already loaded.
+  */
+
+  const FAN_TOP_PRIORITY = [
+
+    ["star plus"],
+
+    [
+      "star sports 1 hindi",
+      "star sports hindi"
+    ],
+
+    ["9xm"],
+
+    [
+      "sony sab",
+      "sab tv"
+    ],
+
+    [
+      "sports18 1 hindi",
+      "sports18 hindi",
+      "sports18"
+    ],
+
+    ["mastiii","mastii"],
+
+    ["star utsav"],
+
+    [
+      "sony sports ten 3",
+      "sony ten 3"
+    ],
+
+    [
+      "mtv beats",
+      "mtv"
+    ],
+
+    [
+      "dangal tv",
+      "dangal"
+    ]
+
   ];
 
-  function text(v){
-    return (v || "").toLowerCase();
+
+  function normalize(value){
+
+    return String(value || "")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g," ")
+      .trim();
   }
 
-  function matches(c,row){
-    const n=text(c.name);
-    const g=text(c.group);
-    return row.names.some(k=>n.includes(k)) ||
-           row.keys.some(k=>g.includes(k));
+
+  function findTopChannel(names){
+
+    for(const wanted of names){
+
+      const exact =
+        channels.findIndex(
+          channel =>
+            normalize(channel.name) ===
+            normalize(wanted)
+        );
+
+      if(exact >= 0){
+        return exact;
+      }
+
+
+      const partial =
+        channels.findIndex(
+          channel =>
+            normalize(channel.name)
+              .includes(
+                normalize(wanted)
+              )
+        );
+
+      if(partial >= 0){
+        return partial;
+      }
+    }
+
+    return -1;
   }
 
-  function unique(items){
-    const seen=new Set();
-    return items.filter(x=>{
-      const key=text(x.channel.name)+"|"+x.channel.url;
-      if(seen.has(key)) return false;
-      seen.add(key);
-      return true;
-    });
-  }
 
-  function card(item){
-    const c=item.channel;
-    const el=document.createElement("div");
-    el.className="fan-cat-card";
-    el.title=c.name || "Live TV";
+  function createTopCard(index){
 
-    const logo=document.createElement("div");
-    logo.className="fan-cat-logo";
+    const channel =
+      channels[index];
 
-    if(c.logo){
-      const img=document.createElement("img");
-      img.src=c.logo;
-      img.alt=c.name || "TV";
-      img.loading="lazy";
-      img.decoding="async";
-      img.onerror=()=>{
-        logo.innerHTML='<div class="fan-cat-fallback">'+
-          ((c.name||"TV").charAt(0).toUpperCase())+
-          '</div>';
-      };
-      logo.appendChild(img);
+
+    const card =
+      document.createElement(
+        "div"
+      );
+
+    card.className =
+      "fan-top-card";
+
+    card.title =
+      channel.name || "Live TV";
+
+
+    const logo =
+      document.createElement(
+        "div"
+      );
+
+    logo.className =
+      "fan-top-logo";
+
+
+    if(channel.logo){
+
+      const image =
+        document.createElement(
+          "img"
+        );
+
+      image.src =
+        channel.logo;
+
+      image.alt =
+        channel.name || "TV";
+
+      image.loading =
+        "lazy";
+
+      image.decoding =
+        "async";
+
+      image.fetchPriority =
+        "low";
+
+
+      image.onerror =
+        () => {
+
+          logo.innerHTML =
+            '<div class="fan-top-fallback">' +
+            (
+              channel.name ||
+              "TV"
+            )
+              .charAt(0)
+              .toUpperCase() +
+            '</div>';
+        };
+
+
+      logo.appendChild(
+        image
+      );
+
     }else{
-      logo.innerHTML='<div class="fan-cat-fallback">'+
-        ((c.name||"TV").charAt(0).toUpperCase())+
+
+      logo.innerHTML =
+        '<div class="fan-top-fallback">' +
+        (
+          channel.name ||
+          "TV"
+        )
+          .charAt(0)
+          .toUpperCase() +
         '</div>';
     }
 
-    const info=document.createElement("div");
-    info.className="fan-cat-info";
 
-    const name=document.createElement("div");
-    name.className="fan-cat-name";
-    name.textContent=c.name || "Live TV";
+    const name =
+      document.createElement(
+        "div"
+      );
 
-    const live=document.createElement("div");
-    live.className="fan-cat-live";
-    live.textContent="● LIVE";
+    name.className =
+      "fan-top-name";
 
-    info.appendChild(name);
-    info.appendChild(live);
-    el.appendChild(logo);
-    el.appendChild(info);
+    name.textContent =
+      channel.name;
 
-    el.onclick=()=>{
-      if(typeof playChannel==="function"){
-        playChannel(item.index,true);
-        setTimeout(()=>{
-          const p=document.getElementById("player");
-          if(p) p.scrollIntoView({behavior:"smooth",block:"center"});
-        },80);
-      }
-    };
 
-    return el;
+    card.appendChild(
+      logo
+    );
+
+    card.appendChild(
+      name
+    );
+
+
+    card.onclick =
+      () => {
+
+        playChannel(
+          index,
+          true
+        );
+      };
+
+
+    return card;
   }
 
-  function renderFanCategories(){
-    const home=document.getElementById("fanCategoryHome");
-    if(!home || !Array.isArray(channels) || !channels.length) return;
 
-    home.innerHTML="";
+  function renderFinalTopChannels(){
 
-    FAN_ROWS.forEach((row,rowIndex)=>{
-      let items=channels
-        .map((channel,index)=>({channel,index}))
-        .filter(item=>matches(item.channel,row));
+    const container =
+      document.getElementById(
+        "fanTopChannels"
+      );
 
-      items=unique(items).slice(0,30);
 
-      const section=document.createElement("section");
-      section.className="fan-row";
-
-      const head=document.createElement("div");
-      head.className="fan-row-head";
-
-      const title=document.createElement("h2");
-      title.className="fan-row-title";
-      title.textContent=row.title;
-
-      const controls=document.createElement("div");
-      controls.className="fan-row-controls";
-
-      const left=document.createElement("button");
-      left.className="fan-arrow";
-      left.type="button";
-      left.textContent="‹";
-
-      const right=document.createElement("button");
-      right.className="fan-arrow";
-      right.type="button";
-      right.textContent="›";
-
-      controls.appendChild(left);
-      controls.appendChild(right);
-      head.appendChild(title);
-      head.appendChild(controls);
-
-      const track=document.createElement("div");
-      track.className="fan-row-track";
-      track.id="fanRow"+rowIndex;
-
-      if(items.length){
-        items.forEach(item=>track.appendChild(card(item)));
-      }else{
-        const empty=document.createElement("div");
-        empty.className="fan-cat-empty";
-        empty.textContent="No available channels in this playlist.";
-        track.appendChild(empty);
-      }
-
-      left.onclick=()=>track.scrollBy({left:-600,behavior:"smooth"});
-      right.onclick=()=>track.scrollBy({left:600,behavior:"smooth"});
-
-      section.appendChild(head);
-      section.appendChild(track);
-      home.appendChild(section);
-    });
-  }
-
-  const timer=setInterval(()=>{
-    if(Array.isArray(channels) && channels.length){
-      clearInterval(timer);
-      renderFanCategories();
+    if(
+      !container ||
+      !Array.isArray(channels) ||
+      !channels.length
+    ){
+      return;
     }
-  },200);
 
-  window.renderFanCategories=renderFanCategories;
+
+    container.innerHTML =
+      "";
+
+
+    const used =
+      new Set();
+
+
+    FAN_TOP_PRIORITY.forEach(
+      names => {
+
+        const index =
+          findTopChannel(
+            names
+          );
+
+
+        if(
+          index < 0 ||
+          used.has(index)
+        ){
+          return;
+        }
+
+
+        used.add(index);
+
+
+        container.appendChild(
+          createTopCard(index)
+        );
+      }
+    );
+
+
+    /*
+      If some requested channels are unavailable
+      in the current playlist, fill remaining slots
+      with useful Hindi/India channels already present.
+    */
+
+    if(
+      container.children.length <
+      10
+    ){
+
+      const fallbackWords = [
+        "hindi",
+        "india",
+        "news",
+        "music",
+        "sports",
+        "entertainment",
+        "movie"
+      ];
+
+
+      channels.forEach(
+        (channel,index) => {
+
+          if(
+            container.children.length >=
+            10
+          ){
+            return;
+          }
+
+
+          if(
+            used.has(index)
+          ){
+            return;
+          }
+
+
+          const haystack =
+            normalize(
+              (
+                channel.name || ""
+              ) +
+              " " +
+              (
+                channel.group || ""
+              )
+            );
+
+
+          if(
+            !fallbackWords.some(
+              word =>
+                haystack.includes(word)
+            )
+          ){
+            return;
+          }
+
+
+          used.add(index);
+
+
+          container.appendChild(
+            createTopCard(index)
+          );
+        }
+      );
+    }
+  }
+
+
+  /* ======================================================
+     SEARCH REPAIR
+  ====================================================== */
+
+  function repairSearch(){
+
+    const input =
+      document.getElementById(
+        "search"
+      );
+
+
+    if(!input){
+      return;
+    }
+
+
+    input.placeholder =
+      "Search all channels...";
+
+
+    /*
+      Original FAN TV already has renderChannels().
+      We only ensure typing triggers it.
+    */
+
+    if(
+      input.dataset.fanSearchFixed !==
+      "1"
+    ){
+
+      input.dataset.fanSearchFixed =
+        "1";
+
+
+      input.addEventListener(
+        "input",
+        () => {
+
+          if(
+            typeof renderChannels ===
+            "function"
+          ){
+            renderChannels();
+          }
+        }
+      );
+    }
+
+
+    const clear =
+      document.getElementById(
+        "clearSearch"
+      );
+
+
+    if(
+      clear &&
+      clear.dataset.fanSearchFixed !==
+      "1"
+    ){
+
+      clear.dataset.fanSearchFixed =
+        "1";
+
+
+      clear.addEventListener(
+        "click",
+        () => {
+
+          input.value =
+            "";
+
+
+          if(
+            typeof renderChannels ===
+            "function"
+          ){
+            renderChannels();
+          }
+
+
+          input.focus();
+        }
+      );
+    }
+  }
+
+
+  /*
+    Wait only for the playlist already being loaded.
+    No extra API/database request.
+  */
+
+  let attempts = 0;
+
+
+  const readyTimer =
+    setInterval(
+      () => {
+
+        attempts++;
+
+
+        repairSearch();
+
+
+        if(
+          Array.isArray(channels) &&
+          channels.length
+        ){
+
+          clearInterval(
+            readyTimer
+          );
+
+
+          renderFinalTopChannels();
+
+
+          /*
+            Change labels to match final UI.
+          */
+
+          const title =
+            document.querySelector(
+              ".fan-section-title"
+            );
+
+
+          const sub =
+            document.querySelector(
+              ".fan-section-sub"
+            );
+
+
+          if(title){
+            title.textContent =
+              "Top Channels";
+          }
+
+
+          if(sub){
+            sub.textContent =
+              "Popular channels";
+          }
+        }
+
+
+        if(attempts > 100){
+
+          clearInterval(
+            readyTimer
+          );
+        }
+
+      },
+      100
+    );
+
+
+  window.renderFinalTopChannels =
+    renderFinalTopChannels;
+
 })();
+
 </script>
 </body>
 </html>
+
 
 
 
