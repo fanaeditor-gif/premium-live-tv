@@ -2580,170 +2580,184 @@ body:not(.idle) .fan-hero{
 }
 
 </style>
-<style id="fantv-player-final-fix">
 
-/* ================================================
-   FAN TV FINAL PLAYER SIZE + VIDEO RENDER FIX
-================================================ */
+<style id="fantv-real-player-final">
 
-body:not(.idle) .layout{
-  display:grid!important;
-  grid-template-columns:320px minmax(0,1fr)!important;
-  height:calc(100vh - 72px)!important;
-  min-height:0!important;
-  overflow:hidden!important;
+/* =========================================
+   FAN TV - REAL PLAYER FINAL FIX
+   Actual element: #player.player
+========================================= */
+
+body:not(.idle) .main{
+    display:grid!important;
+    grid-template-columns:320px minmax(0,1fr)!important;
+    width:100%!important;
+    min-height:calc(100vh - 72px)!important;
+    background:#07070b!important;
 }
 
 body:not(.idle) .sidebar{
-  width:320px!important;
-  height:100%!important;
-  min-height:0!important;
-  overflow:hidden!important;
+    width:320px!important;
+    min-width:320px!important;
+    height:calc(100vh - 72px)!important;
+    overflow:hidden!important;
 }
 
-body:not(.idle) .main{
-  display:flex!important;
-  align-items:flex-start!important;
-  justify-content:center!important;
-
-  width:100%!important;
-  height:100%!important;
-
-  padding:18px!important;
-
-  overflow-y:auto!important;
-
-  background:#07070b!important;
+body:not(.idle) .content{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    width:100%!important;
+    min-width:0!important;
+    padding:18px!important;
+    box-sizing:border-box!important;
 }
 
-/* PLAYER HAS ITS OWN SIZE */
+/* ACTUAL PLAYER */
 
-body:not(.idle) .player-shell{
-  display:block!important;
-  position:relative!important;
+body:not(.idle) #player.player{
+    display:block!important;
+    position:relative!important;
 
-  width:min(100%,1280px)!important;
-  height:auto!important;
+    width:min(100%,1280px)!important;
+    height:auto!important;
+    aspect-ratio:16 / 9!important;
 
-  aspect-ratio:16/9!important;
+    min-width:0!important;
+    min-height:0!important;
+    max-height:calc(100vh - 170px)!important;
 
-  min-height:0!important;
-  max-height:calc(100vh - 110px)!important;
+    margin:0 auto!important;
+    padding:0!important;
 
-  margin:0 auto!important;
+    overflow:hidden!important;
 
-  overflow:hidden!important;
+    border-radius:18px!important;
+    background:#000!important;
 
-  border-radius:18px!important;
+    border:1px solid rgba(255,255,255,.08)!important;
 
-  background:#000!important;
-
-  border:1px solid rgba(255,255,255,.08)!important;
-
-  box-shadow:0 18px 55px rgba(0,0,0,.32)!important;
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.45)!important;
 }
 
-/* REAL VIDEO ELEMENT */
+/* REAL VIDEO */
 
-body:not(.idle) .player-shell video,
-body:not(.idle) video#video,
-body:not(.idle) video{
-  display:block!important;
+body:not(.idle) #player #video{
+    display:block!important;
 
-  position:absolute!important;
+    position:absolute!important;
+    inset:0!important;
 
-  inset:0!important;
+    width:100%!important;
+    height:100%!important;
 
-  width:100%!important;
-  height:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    max-width:none!important;
+    max-height:none!important;
 
-  min-width:0!important;
-  min-height:0!important;
+    margin:0!important;
+    padding:0!important;
 
-  max-width:none!important;
-  max-height:none!important;
+    object-fit:contain!important;
+    object-position:center!important;
 
-  margin:0!important;
-  padding:0!important;
+    background:#000!important;
 
-  object-fit:contain!important;
+    opacity:1!important;
+    visibility:visible!important;
 
-  object-position:center!important;
+    transform:none!important;
+    filter:none!important;
 
-  background:#000!important;
-
-  opacity:1!important;
-
-  visibility:visible!important;
-
-  transform:none!important;
-
-  filter:none!important;
-
-  z-index:1!important;
+    z-index:1!important;
 }
 
-/* Keep controls above video */
+/* PLAYER OVERLAYS */
 
-body:not(.idle) .player-shell .controls{
-  position:absolute!important;
-  z-index:20!important;
+body:not(.idle) #player .gradient{
+    position:absolute!important;
+    inset:0!important;
+    z-index:2!important;
+    pointer-events:none!important;
 }
 
-/* LIVE badge */
-
-body:not(.idle) .live-badge,
-body:not(.idle) .live-pill{
-  z-index:30!important;
+body:not(.idle) #player .placeholder{
+    z-index:5!important;
 }
 
-/* Do not allow hero to cover player */
+body:not(.idle) #player .loader{
+    z-index:30!important;
+}
+
+body:not(.idle) #player .error{
+    z-index:35!important;
+}
+
+body:not(.idle) #player .live-badge{
+    z-index:40!important;
+}
+
+body:not(.idle) #player .player-info{
+    z-index:40!important;
+}
+
+/* CONTROLS BELOW PLAYER */
+
+body:not(.idle) .content > .controls{
+    width:min(100%,1280px)!important;
+    margin:12px auto 0!important;
+    box-sizing:border-box!important;
+}
+
+/* CHANNEL SIDEBAR */
+
+body:not(.idle) .channels{
+    overflow-y:auto!important;
+    overflow-x:hidden!important;
+    max-height:calc(100vh - 230px)!important;
+}
+
+/* Home hero/grid never covers player */
 
 body:not(.idle) .fan-hero,
 body:not(.idle) .fan-top-section{
-  display:none!important;
-}
-
-/* CHANNEL LIST */
-
-body:not(.idle) .channels{
-  overflow-y:auto!important;
-  overflow-x:hidden!important;
-
-  height:auto!important;
-  max-height:calc(100vh - 230px)!important;
+    display:none!important;
 }
 
 /* MOBILE */
 
 @media(max-width:800px){
 
-  body:not(.idle) .layout{
-    display:block!important;
-    height:auto!important;
-    overflow:auto!important;
-  }
+    body:not(.idle) .main{
+        display:flex!important;
+        flex-direction:column-reverse!important;
+        min-height:auto!important;
+    }
 
-  body:not(.idle) .main{
-    width:100%!important;
-    height:auto!important;
+    body:not(.idle) .sidebar{
+        width:100%!important;
+        min-width:0!important;
+        height:auto!important;
+    }
 
-    padding:10px!important;
-  }
+    body:not(.idle) .content{
+        width:100%!important;
+        padding:10px!important;
+    }
 
-  body:not(.idle) .player-shell{
-    width:100%!important;
-    max-width:none!important;
+    body:not(.idle) #player.player{
+        width:100%!important;
+        max-width:none!important;
+        max-height:none!important;
+        aspect-ratio:16 / 9!important;
+        border-radius:12px!important;
+    }
 
-    aspect-ratio:16/9!important;
-
-    border-radius:12px!important;
-  }
-
-  body:not(.idle) .sidebar{
-    width:100%!important;
-    height:auto!important;
-  }
+    body:not(.idle) .content > .controls{
+        width:100%!important;
+    }
 }
 
 </style>
@@ -6278,6 +6292,7 @@ setInterval(
 </script>
 </body>
 </html>
+
 
 
 
