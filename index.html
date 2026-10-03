@@ -1940,6 +1940,168 @@ body:not(.idle) .fan-top-section{
 
 </style>
 
+<style id="fan-category-ui">
+/* FAN TV OTT CATEGORY HOME */
+body.idle .sidebar{
+  display:none!important;
+}
+body.idle .layout{
+  display:block!important;
+}
+body.idle .main{
+  width:100%!important;
+  max-width:none!important;
+  padding:0!important;
+}
+body.idle .player-shell,
+body.idle .controls{
+  display:none!important;
+}
+body:not(.idle) #fanCategoryHome{
+  display:none!important;
+}
+#fanCategoryHome{
+  width:100%;
+  padding:8px 0 60px;
+}
+.fan-row{
+  position:relative;
+  margin:0 0 32px;
+}
+.fan-row-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 34px 13px;
+}
+.fan-row-title{
+  margin:0;
+  font-size:21px;
+  line-height:1.2;
+  font-weight:800;
+  color:#fff;
+  letter-spacing:-.3px;
+}
+.fan-row-controls{
+  display:flex;
+  gap:7px;
+}
+.fan-arrow{
+  width:35px;
+  height:35px;
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:50%;
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  font-size:19px;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.fan-arrow:hover{
+  background:#e50914;
+  border-color:#e50914;
+  transform:scale(1.05);
+}
+.fan-row-track{
+  display:flex;
+  gap:15px;
+  overflow-x:auto;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+  padding:2px 34px 10px;
+  overscroll-behavior-inline:contain;
+}
+.fan-row-track::-webkit-scrollbar{
+  display:none;
+}
+.fan-cat-card{
+  flex:0 0 178px;
+  min-width:178px;
+  height:150px;
+  position:relative;
+  border-radius:14px;
+  overflow:hidden;
+  cursor:pointer;
+  background:linear-gradient(145deg,#17171d,#0d0d11);
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 9px 24px rgba(0,0,0,.25);
+  transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease;
+}
+.fan-cat-card:hover{
+  transform:translateY(-5px) scale(1.025);
+  border-color:rgba(229,9,20,.75);
+  box-shadow:0 15px 34px rgba(0,0,0,.42);
+}
+.fan-cat-logo{
+  height:105px;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:17px;
+  background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.09),transparent 67%);
+}
+.fan-cat-logo img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.fan-cat-fallback{
+  width:62px;
+  height:62px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:16px;
+  background:linear-gradient(145deg,#e50914,#780007);
+  color:#fff;
+  font-size:27px;
+  font-weight:900;
+}
+.fan-cat-info{
+  height:45px;
+  padding:7px 10px 8px;
+  background:linear-gradient(180deg,rgba(20,20,25,.94),rgba(8,8,11,.99));
+}
+.fan-cat-name{
+  color:#fff;
+  font-size:13px;
+  line-height:16px;
+  font-weight:750;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.fan-cat-live{
+  margin-top:3px;
+  color:#ff4d57;
+  font-size:9px;
+  line-height:10px;
+  font-weight:900;
+  letter-spacing:.8px;
+}
+.fan-cat-empty{
+  padding:18px 34px;
+  color:rgba(255,255,255,.48);
+  font-size:13px;
+}
+@media(max-width:700px){
+  .fan-row{margin-bottom:25px}
+  .fan-row-head{padding:0 16px 10px}
+  .fan-row-title{font-size:18px}
+  .fan-row-controls{display:none}
+  .fan-row-track{padding:2px 16px 8px;gap:11px}
+  .fan-cat-card{
+    flex-basis:145px;
+    min-width:145px;
+    height:132px;
+    border-radius:12px;
+  }
+  .fan-cat-logo{height:91px;padding:14px}
+  .fan-cat-info{height:41px}
+}
+</style>
 </head>
 
 <body class="idle">
@@ -4829,8 +4991,189 @@ setInterval(
 
 </script>
 
+<script id="fan-category-js">
+(function(){
+  const FAN_ROWS = [
+    {
+      title:"Hindi Entertainment",
+      keys:["entertainment","general","hindi"],
+      names:["star plus","sony entertainment","sony sab","zee tv","colors","&tv","dangal","star bharat"]
+    },
+    {
+      title:"Hindi Movies",
+      keys:["movies","movie"],
+      names:["zee cinema","star gold","sony max","colors cineplex","b4u movies","&pictures","dhinchaak"]
+    },
+    {
+      title:"Hindi News",
+      keys:["news"],
+      names:["aaj tak","abp news","india tv","news18 india","ndtv india","republic bharat","zee news","dd news","tv9 bharatvarsh"]
+    },
+    {
+      title:"Hindi Music",
+      keys:["music"],
+      names:["mtv","9xm","b4u music","zoom","mastiii","music india"]
+    },
+    {
+      title:"Sports",
+      keys:["sports","sport"],
+      names:["star sports","sony sports","dd sports","sports18","eurosport"]
+    }
+  ];
+
+  function text(v){
+    return (v || "").toLowerCase();
+  }
+
+  function matches(c,row){
+    const n=text(c.name);
+    const g=text(c.group);
+    return row.names.some(k=>n.includes(k)) ||
+           row.keys.some(k=>g.includes(k));
+  }
+
+  function unique(items){
+    const seen=new Set();
+    return items.filter(x=>{
+      const key=text(x.channel.name)+"|"+x.channel.url;
+      if(seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }
+
+  function card(item){
+    const c=item.channel;
+    const el=document.createElement("div");
+    el.className="fan-cat-card";
+    el.title=c.name || "Live TV";
+
+    const logo=document.createElement("div");
+    logo.className="fan-cat-logo";
+
+    if(c.logo){
+      const img=document.createElement("img");
+      img.src=c.logo;
+      img.alt=c.name || "TV";
+      img.loading="lazy";
+      img.decoding="async";
+      img.onerror=()=>{
+        logo.innerHTML='<div class="fan-cat-fallback">'+
+          ((c.name||"TV").charAt(0).toUpperCase())+
+          '</div>';
+      };
+      logo.appendChild(img);
+    }else{
+      logo.innerHTML='<div class="fan-cat-fallback">'+
+        ((c.name||"TV").charAt(0).toUpperCase())+
+        '</div>';
+    }
+
+    const info=document.createElement("div");
+    info.className="fan-cat-info";
+
+    const name=document.createElement("div");
+    name.className="fan-cat-name";
+    name.textContent=c.name || "Live TV";
+
+    const live=document.createElement("div");
+    live.className="fan-cat-live";
+    live.textContent="● LIVE";
+
+    info.appendChild(name);
+    info.appendChild(live);
+    el.appendChild(logo);
+    el.appendChild(info);
+
+    el.onclick=()=>{
+      if(typeof playChannel==="function"){
+        playChannel(item.index,true);
+        setTimeout(()=>{
+          const p=document.getElementById("player");
+          if(p) p.scrollIntoView({behavior:"smooth",block:"center"});
+        },80);
+      }
+    };
+
+    return el;
+  }
+
+  function renderFanCategories(){
+    const home=document.getElementById("fanCategoryHome");
+    if(!home || !Array.isArray(channels) || !channels.length) return;
+
+    home.innerHTML="";
+
+    FAN_ROWS.forEach((row,rowIndex)=>{
+      let items=channels
+        .map((channel,index)=>({channel,index}))
+        .filter(item=>matches(item.channel,row));
+
+      items=unique(items).slice(0,30);
+
+      const section=document.createElement("section");
+      section.className="fan-row";
+
+      const head=document.createElement("div");
+      head.className="fan-row-head";
+
+      const title=document.createElement("h2");
+      title.className="fan-row-title";
+      title.textContent=row.title;
+
+      const controls=document.createElement("div");
+      controls.className="fan-row-controls";
+
+      const left=document.createElement("button");
+      left.className="fan-arrow";
+      left.type="button";
+      left.textContent="‹";
+
+      const right=document.createElement("button");
+      right.className="fan-arrow";
+      right.type="button";
+      right.textContent="›";
+
+      controls.appendChild(left);
+      controls.appendChild(right);
+      head.appendChild(title);
+      head.appendChild(controls);
+
+      const track=document.createElement("div");
+      track.className="fan-row-track";
+      track.id="fanRow"+rowIndex;
+
+      if(items.length){
+        items.forEach(item=>track.appendChild(card(item)));
+      }else{
+        const empty=document.createElement("div");
+        empty.className="fan-cat-empty";
+        empty.textContent="No available channels in this playlist.";
+        track.appendChild(empty);
+      }
+
+      left.onclick=()=>track.scrollBy({left:-600,behavior:"smooth"});
+      right.onclick=()=>track.scrollBy({left:600,behavior:"smooth"});
+
+      section.appendChild(head);
+      section.appendChild(track);
+      home.appendChild(section);
+    });
+  }
+
+  const timer=setInterval(()=>{
+    if(Array.isArray(channels) && channels.length){
+      clearInterval(timer);
+      renderFanCategories();
+    }
+  },200);
+
+  window.renderFanCategories=renderFanCategories;
+})();
+</script>
 </body>
 </html>
+
 
 
 
