@@ -1,7 +1,8 @@
 ﻿{
-  "name": "premium-iptv-player",
-  "version": "4.0.0",
+  "name": "premium-live-tv",
+  "version": "1.0.0",
   "private": true,
+  "description": "Premium Live TV Web Player",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
